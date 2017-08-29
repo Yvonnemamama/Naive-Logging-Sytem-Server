@@ -1,4 +1,6 @@
-public/images
+public/worker
+public/residence
+nohup.out
 # Compiled source #
 ###################
 *.com
