@@ -7,7 +7,7 @@ var fx = require('mkdir-recursive');
 var MongoCLient = require('mongodb').MongoClient, assert = require('assert');
 
 
-var imageBasicLocation = "./public/images/"  //所有图片都存放在这个目录下
+var imageBasicLocation = "./public/residence/images/"  //所有图片都存放在这个目录下
 var url = 'mongodb://localhost:27017/dashilan'
 
 /* GET home page. */
@@ -93,12 +93,5 @@ router.all('/pic', upload.single('file'), function (req, res, next) {
 
 });
 
-router.all('/pic', upload.single('file'), function (error, req, res, next) {
-    console.log(error);
-    console.log("in main pic");
-    console.log(req.file);
-    res.send({ret_code: '0'});
-
-});
 
 module.exports = router;
