@@ -7,7 +7,7 @@ var fx = require('mkdir-recursive');
 var MongoCLient = require('mongodb').MongoClient, assert = require('assert');
 
 
-var imageBasicLocation = "./public/residence/images/"  //所有图片都存放在这个目录下
+var imageBasicLocation = "./public/rawdata/residence/images/"  //所有图片都存放在这个目录下
 var url = 'mongodb://localhost:27017/dashilan'
 
 /* GET home page. */
@@ -37,7 +37,7 @@ var storage = multer.diskStorage({
         var time=req.body.time;
         var organization = req.body.organization;
         var type = req.body.type;
-        var pic_name = date+'_'+time+'_'+organization+"_"+type+"_"+Math.floor((Math.random()*(10000-0+1))+0).toString();//存储的文件名
+        var pic_name = date+'_'+time+'_'+organization+"_"+type+"_"+Math.floor((Math.random()*(10000-0+1))+0).toString()+'.jpg';//存储的文件名
         var pic_position = path.join(date,time,organization,type,pic_name)
 
         MongoCLient.connect(url, function (err, db) {
