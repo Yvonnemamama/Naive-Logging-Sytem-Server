@@ -1,20 +1,28 @@
 var express = require('express');
+
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var formidable = require('formidable')
+var formidable = require('formidable');
 var index = require('./routes/index');
 var users = require('./routes/users');
-var residence = require('./routes/residence')
-var worker = require('./routes/worker')
+var residence = require('./routes/residence');
+var worker = require('./routes/worker');
 
 var app = express();
 
 // view engine setup
+var swig = require('swig');
+var swig = new swig.Swig();
+app.engine('html', swig.renderFile);
+app.set('view engine', 'html');
+
+//设置views文件夹的位置
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+
+//设置端口
 app.set('port', process.env.PORT || 4000)
 
 // uncomment after placing your favicon in /public
@@ -26,12 +34,15 @@ app.use(cookieParser());
 
 
 
-app.use(express.static(path.join(__dirname, 'public')));
+
+//把静态文件挂在到一个叫log的目录下
+app.use('/log', express.static(path.join(__dirname, 'public')));
+
 
 app.use('/', index);
-app.use('/users', users);
-app.use('/residence', residence);
-app.use('/worker', worker);
+app.use('/log/users', users);
+app.use('/log/residence', residence);
+app.use('/log/worker', worker);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
