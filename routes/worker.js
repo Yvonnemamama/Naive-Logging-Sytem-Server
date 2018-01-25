@@ -22,7 +22,7 @@ router.post('/search_log', function (req, res, next) {
     console.log("worker_name="+worker_name);
     MongoCLient.connect(url, function (err, db) {
         assert.equal(null, err);
-        db.collection('worker').find({gfrxm: worker_name}).toArray(
+        db.collection('worker').find({gfrxm: {'$regex' : '.*' + worker_name + '.*'}}).toArray(
             function (err, result) {
                 console.log(result);
                 if(result.length!=0) {

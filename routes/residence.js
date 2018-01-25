@@ -49,6 +49,7 @@ var storage = multer.diskStorage({
                 function (err, result) {
                     assert.equal(err, null);
                     console.log("Insert an item into the " + type + " array");
+
                 }
             );
         });
@@ -62,7 +63,7 @@ var upload = multer({storage: storage})
 
 //文字上传
 router.post('/words', function (req, res, next) {
-
+    console.log('\n\n');
     console.log(req.body);
     var words = req.body;
     var date = req.body.date;
@@ -80,6 +81,7 @@ router.post('/words', function (req, res, next) {
         assert.equal(null, err);
         var queryCondition = [{date: date}, {organization: organization}];
         db.collection("residence").find({$and: queryCondition}).toArray(function (err, result) {
+
             if (err) throw err;
             //如果已经存在该记录，则用新的值覆盖记录
             console.log(result);
@@ -135,18 +137,18 @@ router.post('/words', function (req, res, next) {
 
                     });
             } else {
+
                 db.collection("residence").insertOne(words, function (err, res) {
+                    console.log(err);
                     assert.equal(null, err);
                     console.log("插入一条全新的活动记录");
                     db.close();
                 });
+
             }
         });
     });
-
     res.send({ret_code: '0'});
-
-
 });
 
 
